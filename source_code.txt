@@ -1,0 +1,143 @@
+SOAL 2.3
+
+1.	Tampilkan produk yang kode awalnya huruf K dan huruf M
+SELECT * FROM produk WHERE kode LIKE 'K%' OR kode LIKE 'M%';
+
+2.	Tampilkan produk yang kode awalnya bukan huruf M
+select kode, nama from produk
+    -> where kode not like 'M%';
++--------+-------------------+
+| kode   | nama              |
++--------+-------------------+
+| TV01   | Televisi 21 inchs |
+| TV02   | Televisi 40 inch  |
+| K001   | Kulkas 2 pintu    |
+| TK01   | Teh Kotak         |
+| PC01   | PC Desktop HP     |
+| TB01   | Teh Botol         |
+| AC01   | Notebook Acer S   |
+| LN01   | Notebook Lenovo   |
+| L005   | Laptop Lenovo     |
+| L112   | Kopi              |
+| L113   | Teh Sosro 2       |
+| L0015  | Laptop Asus       |
+| TV0115 | Televisi 22 inc`  |
+| TV0116 | Televisi 23 inc   |
+| TV0117 | Televisi 24 inc   |
+| TV0118 | Televisi 25 inc   |
+| TV0120 | Televisi 27 inc   |
+| TV0121 | Televisi 28 inc   |
+| TV0122 | Televisi 29 inc   |
+| THP001 | Teh Pucuk         |
+| THP002 | Teh Pucuk2        |
++--------+-------------------+
+
+3.	Tampilkan produk-produk televisi
+select kode, nama from produk
+    -> where nama like 'televisi%';
++--------+-------------------+
+| kode   | nama              |
++--------+-------------------+
+| TV01   | Televisi 21 inchs |
+| TV02   | Televisi 40 inch  |
+| TV0115 | Televisi 22 inc`  |
+| TV0116 | Televisi 23 inc   |
+| TV0117 | Televisi 24 inc   |
+| TV0118 | Televisi 25 inc   |
+| TV0120 | Televisi 27 inc   |
+| TV0121 | Televisi 28 inc   |
+| TV0122 | Televisi 29 inc   |
++--------+-------------------+
+
+4.	Tampilkan pelanggan mengandung huruf 'SA'
+select kode, nama from pelanggan
+    -> where nama like 'sa%';
+Empty set (0.001 sec)
+
+5.	Tampilkan pelanggan yang lahirnya bukan di Jakarta dan mengandung huruf ‘yo‘
+select kode, nama, tmp_lahir from pelanggan
+    -> where tmp_lahir not like 'jakarta%' and nama like 'yo%';
+Empty set (0.001 sec)
+
+6.	Tampilkan pelanggan yang karakter huruf ke – 2 nya adalah A
+select kode, nama from pelanggan
+    -> where nama like '_a%';
++------+--------------+
+| kode | nama         |
++------+--------------+
+| C002 | Pandan Wangi |
+| C006 | Gayatri Dwi  |
+| C010 | Cassanndra   |
++------+--------------+
+
+SOAL 2.4
+
+1.	Tampilkan 2 data produk termahal
+SELECT *FROM produk ORDER BY harga_beli DESC LIMIT 2;
+
+2.	Tampilkan produk yang paling murah
+select min(harga_jual) as harga_termurah from produk;
++----------------+
+| harga_termurah |
++----------------+
+|           2500 |
++----------------+
+
+3.	Tampilkan produk yang stoknya paling banyak
+select max(stok) as stok_terbanyak from produk;
++----------------+
+| stok_terbanyak |
++----------------+
+|             53 |
++----------------+
+
+4.	Tampilkan dua produk yang stoknya paling sedikit
+select kode, nama, stok from produk
+    -> order by stok asc
+    -> limit 2;
++------+------------------+------+
+| kode | nama             | stok |
++------+------------------+------+
+| TV02 | Televisi 40 inch |    4 |
+| M001 | Meja Makan       |    4 |
++------+------------------+------+
+
+5.	Tampilkan pelanggan yang paling muda
+select kode, nama, tmp_lahir, tgl_lahir from pelanggan
+    -> order by tgl_lahir desc;
++-------+--------------------+------------+------------+
+| kode  | nama               | tmp_lahir  | tgl_lahir  |
++-------+--------------------+------------+------------+
+| K0011 | Ira                | Jakarta    | 2023-11-07 |
+| K0010 | Andi Wijaya        | Tangerang  | 2023-11-07 |
+| C001  | Agung Sedayu Group | Solo       | 2010-01-01 |
+| C009  | Ahmad Hasan        | Surabaya   | 1992-10-15 |
+| C010  | Cassanndra         | Belfast    | 1990-11-20 |
+| C008  | Andre Haru         | Surabaya   | 1990-07-15 |
+| C007  | Dewi Gyat          | Jakarta    | 1988-12-01 |
+| C006  | Gayatri Dwi        | Jakarta    | 1987-11-28 |
+| C005  | Pradabashu         | Pati       | 1985-04-02 |
+| C003  | Sekar Mirah        | Kediri     | 1983-02-20 |
+| C004  | Swandaru Geni      | Kediri     | 1981-01-04 |
+| C002  | Pandan Wangi       | Yogyakarta | 1950-01-01 |
++-------+--------------------+------------+------------+
+
+6.	Tampilkan pelanggan yang paling tua
+select kode, nama, tmp_lahir, tgl_lahir from pelanggan
+    -> order by tgl_lahir asc;
++-------+--------------------+------------+------------+
+| kode  | nama               | tmp_lahir  | tgl_lahir  |
++-------+--------------------+------------+------------+
+| C002  | Pandan Wangi       | Yogyakarta | 1950-01-01 |
+| C004  | Swandaru Geni      | Kediri     | 1981-01-04 |
+| C003  | Sekar Mirah        | Kediri     | 1983-02-20 |
+| C005  | Pradabashu         | Pati       | 1985-04-02 |
+| C006  | Gayatri Dwi        | Jakarta    | 1987-11-28 |
+| C007  | Dewi Gyat          | Jakarta    | 1988-12-01 |
+| C008  | Andre Haru         | Surabaya   | 1990-07-15 |
+| C010  | Cassanndra         | Belfast    | 1990-11-20 |
+| C009  | Ahmad Hasan        | Surabaya   | 1992-10-15 |
+| C001  | Agung Sedayu Group | Solo       | 2010-01-01 |
+| K0010 | Andi Wijaya        | Tangerang  | 2023-11-07 |
+| K0011 | Ira                | Jakarta    | 2023-11-07 |
++-------+--------------------+------------+------------+
